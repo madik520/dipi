@@ -1,69 +1,58 @@
 import React from 'react';
-import {Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
+import { validate, renderField } from '../RenderFields/RenderFields';
 
 //Redux-form settings
-const validate = (values:{ email:string, password:number, secondPassword: number }) => {
-    const errors = {
-        email: "",
-        password: "",
-        secondPassword: ""
-    }
-    if (!values.email) {
-      errors.email = 'Required'
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      errors.email = 'Invalid email address'
-    } 
-    if(values.password < 6){
-        errors.password = 'Password mast be min 6 symbol'
-    } 
-    if(values.secondPassword !== values.password){
-        errors.secondPassword = "Password mismatch"
-    } 
-    return errors
-}
 
-const renderField = ({ input, label, type, meta: { touched, error } }:any) => (
-    <div>
-      <label>{label}</label>
-      <div>
-        <input {...input} placeholder={label} type={type} />
-        {touched && error && <span>{error}</span>}
-      </div>
-    </div>
-);
+
+
 
 interface ICreateContactFrom {
-    props: any
+
 }
 
-const CreateContactForm:React.FC<ICreateContactFrom> = (props) => {
+const CreateContactForm:React.FC<InjectedFormProps<ICreateContactFrom>> = (props) => {
+    const { handleSubmit } = props;
     return(
-        <form>
+        <form onSubmit={handleSubmit}>
             <Field 
                 name="email"
                 type="email"
                 component={renderField}
                 label="Email"
+                required={true}
             />
             <Field 
                 name="password"
                 type="password"
                 component={renderField}
                 label="Password"
+                required={true}
             />
             <Field 
                 name="secondPassword"
                 type="password"
                 component={renderField}
                 label="Password Confirm"
+                required={true}
             />
-            <button type="submit" className="btn-submit">next</button>
+            <button className="btn-submit">next</button>
         </form>
     );
 };
 
-export default reduxForm<any, any>({
-    form: 'form-contact',
+const ReducerContactForm = reduxForm<any, any>({
+    form: 'contact-form',
     validate
 })(CreateContactForm);
 
+const ContactForm = (props:any) => {
+    const submiting = (data:any) => {
+        console.log(data)
+    }
+    return(
+        <ReducerContactForm onSubmit={submiting} />
+    )
+}
+
+export default ContactForm;
