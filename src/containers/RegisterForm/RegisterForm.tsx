@@ -9,7 +9,7 @@ const RegisterForm = () => {
     return(
         <div className="register-form-container">
             <Router>
-                <Steps />
+                <Steps onClick={() => {}} />
                 <div className="register-form-wrapper">
                     <Switch>
                         <Route exact path={"/"} component={ContactForm} />

@@ -1,42 +1,45 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const STEP_LINKS = [
     {
-        id: "contacts",
-        className: "steps-circle",
+        id: "/",
+        className: "step-circle",
         text: "contacts",
     },
     {
         id: "address",
-        className: "steps-circle",
+        className: "step-circle",
         text: "address",
     },   
     {
-        id: "categories",
-        className: "steps-circle",
+        id: "category",
+        className: "step-circle",
         text: "categories",
     },   
     {
         id: "success",
-        className: "steps-circle",
+        className: "step-circle",
         text: "success",
     },       
 ]
 
-const Steps = () => {
+interface ISteps {
+    onClick: () => void
+}
+
+const Steps:React.FC<ISteps> = ({ onClick }) => {
     const [ stepsArr, setStepsArr ] = useState(STEP_LINKS);
 
     return(
         <header className="steps-container">
             <div className="steps-wrapper">
                 { stepsArr.map(({ id, className, text }) => {
-                    return <Link key={id} to={id}>
-                        <div className={className}>
+                    return <div key={id} className="step" >
+                        <div onClick={onClick} className={className}>
                             <span>{text}</span>
                         </div>
                         <div className="step-line"></div>
-                    </Link>
+                    </div>
                 }) }
             </div>
         </header>
