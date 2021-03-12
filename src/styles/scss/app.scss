@@ -101,6 +101,7 @@
             padding-left: 5px;
             border: 2px solid $purple-color;
             font-size: 1rem;
+            color: $purple-color;
         }
         span{
             color: $danger-color;
@@ -115,4 +116,47 @@
     text-transform: uppercase;
     font-size: 1.2rem;
     cursor: pointer;
+}
+.category-select{
+    width: 250px;
+    height: 35px;
+    margin-top: 10px;
+    padding-left: 5px;
+    border: 2px solid $purple-color;
+    font-size: 1rem;
+    color: $purple-color;
+}
+
+//Success form
+.success-container{
+    align-self: flex-start;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    h1{
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: $purple-color;
+    }
+    .success-text-wrapper{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        font-size: 1.4rem;
+        color: rgb(59, 59, 59);
+    }
+    footer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        span{
+            color: rgba(32, 32, 32, 0.8);
+        }
+    }
 }

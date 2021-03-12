@@ -1,17 +1,19 @@
 import React from 'react';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
+import { connect, ConnectedProps } from 'react-redux';
+
+import { RootState } from '../../../reducers/combineReducers';
+import { submitContact } from '../../../actions/actionCreator';
 import { validate, renderField } from '../RenderFields/RenderFields';
 
-//Redux-form settings
+//Connect types
+const mapState = (state: RootState) => ({
+    register: state.register
+});
+const connector = connect(mapState, { submitContact });
+type ReducerProps = ConnectedProps<typeof connector>
 
-
-
-
-interface ICreateContactFrom {
-
-}
-
-const CreateContactForm:React.FC<InjectedFormProps<ICreateContactFrom>> = (props) => {
+const CreateContactForm:React.FC<InjectedFormProps<ReducerProps>> = (props) => {
     const { handleSubmit } = props;
     return(
         <form onSubmit={handleSubmit}>
@@ -28,6 +30,7 @@ const CreateContactForm:React.FC<InjectedFormProps<ICreateContactFrom>> = (props
                 component={renderField}
                 label="Password"
                 required={true}
+                autoComplete="new-password"
             />
             <Field 
                 name="secondPassword"
@@ -35,6 +38,7 @@ const CreateContactForm:React.FC<InjectedFormProps<ICreateContactFrom>> = (props
                 component={renderField}
                 label="Password Confirm"
                 required={true}
+                autoComplete="current-password"
             />
             <button className="btn-submit">next</button>
         </form>
@@ -48,11 +52,12 @@ const ReducerContactForm = reduxForm<any, any>({
 
 const ContactForm = (props:any) => {
     const submiting = (data:any) => {
-        console.log(data)
+        props.submitContact(data);
+        props.history.replace("/address");
     }
     return(
         <ReducerContactForm onSubmit={submiting} />
     )
 }
 
-export default ContactForm;
+export default connector(ContactForm);
