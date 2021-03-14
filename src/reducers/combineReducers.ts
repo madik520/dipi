@@ -4,7 +4,7 @@ import register from './registerReducer';
 
 const rootReducer = combineReducers({
     form: formReducer,
-    register: register
+    register: register,
 });
 
 export default rootReducer;

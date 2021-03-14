@@ -1,4 +1,4 @@
-import { CONTACT_FORM, ADDRESS_FORM, CATEGORY_FORM } from '../constants/constants';
+import { CONTACT_FORM, ADDRESS_FORM, CATEGORY_FORM, NEXT_STEP } from '../constants/constants';
 
 //Category types
 export type ContactTypes = {
@@ -37,4 +37,15 @@ interface ICategoryActions {
     payload: CategoryTypes
 }
 
-export type ActionsTypes = IContactActions | IAddressActions | ICategoryActions;
+//Steps types
+type NextStepType = {
+    step: number | string
+}
+interface INextStepActions {
+    type: typeof NEXT_STEP,
+    payload: NextStepType
+}
+
+
+//export form actions
+export type ActionsTypes = IContactActions | IAddressActions | ICategoryActions | INextStepActions;

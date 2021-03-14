@@ -3,14 +3,14 @@ import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../../reducers/combineReducers';
-import { submitContact } from '../../../actions/actionCreator';
+import { submitContact, nextStep } from '../../../actions/actionCreator';
 import { validate, renderField } from '../RenderFields/RenderFields';
 
 //Connect types
 const mapState = (state: RootState) => ({
     register: state.register
 });
-const connector = connect(mapState, { submitContact });
+const connector = connect(mapState, { submitContact, nextStep });
 type ReducerProps = ConnectedProps<typeof connector>
 
 const CreateContactForm:React.FC<InjectedFormProps<ReducerProps>> = (props) => {
@@ -53,6 +53,7 @@ const ReducerContactForm = reduxForm<any, any>({
 const ContactForm = (props:any) => {
     const submiting = (data:any) => {
         props.submitContact(data);
+        props.nextStep(2);
         props.history.replace("/address");
     }
     return(

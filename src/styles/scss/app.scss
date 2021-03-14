@@ -23,53 +23,62 @@
         width: 80%;
         margin: auto;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         .step{
             width: 100%;
             display: flex;
-            justify-content: center;
             align-items: center;
+            background-color: #fff;
+            cursor: pointer;
             .step-circle{
-                width: 15px;
-                height: 15px;
-                background-color: #fff;
-                border: 5px solid $purple-color;
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
                 span{
-                    position: relative;
-                    top: 20px;
+                    position: absolute;
+                    margin-top: 20px;
+                    margin-left: -23px;
                     text-transform: uppercase;
                     color: $purple-color;
                     font-weight: bold;
                     font-size: 0.7rem;
+                    justify-self: center;
                 }
             }
-            .step-line{
-                display: block;
+            &::after{
+                content: "";
                 width: 100%;
-                height: 3px;
-                background-color: $purple-color;
-                opacity: 0.3;
+                height: 2px;
+                display: block;
+                background-color: rgba(148, 123, 218, 0.4);
+            }
+            &:nth-child(2){
+                span{
+                    margin-left: -18px;
+                }
+            }
+            &:nth-child(3){
+                span{
+                    margin-left: -28px;
+                }
             }
             &:last-child{
-                width: 0;
-                .step-line{
+                min-width: 15px;
+                max-width: 20px;
+                span{
+                    margin-left: -20px;
+                }
+                &::after{
                     display: none;
                 }
             }
         }
     }
-    .steps-name{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+}
+
+.circle{
+    width: 8px;
+    height: 8px;
+    background-color: $purple-color;
+    border-radius: 50%;
 }
 
 //Register form wrapper
@@ -158,5 +167,58 @@
         span{
             color: rgba(32, 32, 32, 0.8);
         }
+    }
+}
+
+
+
+//Animation step
+.complete-step{
+    &::after{
+        content: "";
+        width: 100%;
+        height: 3px;
+        display: block;
+        background: linear-gradient($purple-color, $purple-color);
+        background-position: 0 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 3px;
+        animation: next-step 1s ease-in;
+    }
+}
+.prev-step {
+    .circle{
+        width: 15px;
+        height: 15px;
+        background-color: #ffffff;
+        border: 6px solid $purple-color;
+        border-radius: 50%;
+    }
+}
+.active{
+    .circle{
+        width: 15px;
+        height: 15px;
+        background-color: #ffffff;
+        border: 6px solid $purple-color;
+        border-radius: 50%;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes next-step{
+    0%{
+        background: linear-gradient($purple-color, $purple-color);
+        background-color: rgba(148, 123, 218, 0.4);
+        background-position: 0 100%;
+        background-repeat: no-repeat;
+        background-size: 0% 3px;
+    }
+    100%{
+        background: linear-gradient($purple-color, $purple-color);
+        background-color: rgba(148, 123, 218, 0.4);
+        background-position: 0 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 3px;
     }
 }

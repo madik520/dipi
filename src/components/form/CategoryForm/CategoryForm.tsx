@@ -3,14 +3,14 @@ import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../../reducers/combineReducers';
-import { submitCategory } from '../../../actions/actionCreator';
+import { submitCategory, nextStep } from '../../../actions/actionCreator';
 import { validate, renderField } from '../RenderFields/RenderFields';
 
 //Connect types
 const mapState = (state: RootState) => ({
     register: state.register
 });
-const connector = connect(mapState, { submitCategory });
+const connector = connect(mapState, { submitCategory, nextStep });
 type ReducerProps = ConnectedProps<typeof connector>
 
 const CreateCategoryForm:React.FC<InjectedFormProps<ReducerProps>> = (props) => {
@@ -48,7 +48,11 @@ const ReducerCategoryForm = reduxForm<any, any>({
 const CategoryForm = (props:any) => {
     const submiting = (data:any) => {
         props.submitCategory(data);
+        props.nextStep("complete");
         props.history.replace("/success");
+        setTimeout(() => {
+            alert("Your form submitted! :)");
+        }, 1000);
     }
     return(
         <ReducerCategoryForm onSubmit={submiting} />

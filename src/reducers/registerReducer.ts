@@ -1,7 +1,8 @@
-import { CONTACT_FORM, ADDRESS_FORM, CATEGORY_FORM } from '../constants/constants';
+import { CONTACT_FORM, ADDRESS_FORM, CATEGORY_FORM, NEXT_STEP } from '../constants/constants';
 import { ActionsTypes } from '../types/types';
 
 interface IState {
+    steps: number | string,
     contact: {
         email: string | null,
         password: string | null,
@@ -20,6 +21,7 @@ interface IState {
 }
 
 const initialState = {
+    steps: 1,
     contact: {
         email: null,
         password: null,
@@ -39,6 +41,11 @@ const initialState = {
 
 const register = (state = initialState, action:ActionsTypes):IState => {
     switch(action.type){
+        case NEXT_STEP:
+            return {
+                ...state,
+                steps: action.payload.step
+            }
         case CONTACT_FORM:
             return {
                 ...state,
@@ -65,7 +72,6 @@ const register = (state = initialState, action:ActionsTypes):IState => {
                     category2: action.payload.category2,
                     category3: action.payload.category3
                 }
-                
             }
         default:
             return state;

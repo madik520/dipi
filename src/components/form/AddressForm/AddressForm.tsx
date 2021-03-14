@@ -3,14 +3,14 @@ import { Field, reduxForm, InjectedFormProps } from 'redux-form';
 import { connect, ConnectedProps } from 'react-redux';
 
 import { RootState } from '../../../reducers/combineReducers';
-import { submitAddress } from '../../../actions/actionCreator';
+import { submitAddress, nextStep } from '../../../actions/actionCreator';
 import { validate, renderField } from '../RenderFields/RenderFields';
 
 //Connect types
 const mapState = (state: RootState) => ({
     register: state.register
 });
-const connector = connect(mapState, { submitAddress });
+const connector = connect(mapState, { submitAddress, nextStep });
 type ReducerProps = ConnectedProps<typeof connector>
 
 const CreateAddressForm:React.FC<InjectedFormProps<ReducerProps>> = (props) => {
@@ -51,6 +51,7 @@ const ReducerAddressForm = reduxForm<any, any>({
 const AddressForm = (props:any) => {
     const submiting = (data:any) => {
         props.submitAddress(data);
+        props.nextStep(3);
         props.history.replace("/category");
     }
     return(
